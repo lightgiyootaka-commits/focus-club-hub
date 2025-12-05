@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      badges: {
+        Row: {
+          badge_type: string
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: string
+          name: string
+          rarity: string | null
+          requirement_value: number
+          xp_reward: number
+        }
+        Insert: {
+          badge_type: string
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name: string
+          rarity?: string | null
+          requirement_value?: number
+          xp_reward?: number
+        }
+        Update: {
+          badge_type?: string
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          name?: string
+          rarity?: string | null
+          requirement_value?: number
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       club_members: {
         Row: {
           club_id: string
@@ -87,6 +123,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      daily_tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          is_completed: boolean | null
+          task_date: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          task_date?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          is_completed?: boolean | null
+          task_date?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       focus_sessions: {
         Row: {
@@ -179,8 +245,10 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string | null
+          daily_goal_minutes: number | null
           email: string | null
           id: string
+          level_title: string | null
           name: string | null
           streak_days: number | null
           total_focus_minutes: number | null
@@ -189,8 +257,10 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string | null
+          daily_goal_minutes?: number | null
           email?: string | null
           id: string
+          level_title?: string | null
           name?: string | null
           streak_days?: number | null
           total_focus_minutes?: number | null
@@ -199,12 +269,183 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           created_at?: string | null
+          daily_goal_minutes?: number | null
           email?: string | null
           id?: string
+          level_title?: string | null
           name?: string | null
           streak_days?: number | null
           total_focus_minutes?: number | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      quests: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: string
+          is_active: boolean | null
+          quest_type: string
+          target_value: number
+          title: string
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          quest_type: string
+          target_value?: number
+          title: string
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          quest_type?: string
+          target_value?: number
+          title?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_quests: {
+        Row: {
+          assigned_at: string
+          completed_at: string | null
+          created_at: string | null
+          current_progress: number
+          id: string
+          is_completed: boolean | null
+          quest_id: string
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          completed_at?: string | null
+          created_at?: string | null
+          current_progress?: number
+          id?: string
+          is_completed?: boolean | null
+          quest_id: string
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string
+          completed_at?: string | null
+          created_at?: string | null
+          current_progress?: number
+          id?: string
+          is_completed?: boolean | null
+          quest_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_quests_quest_id_fkey"
+            columns: ["quest_id"]
+            isOneToOne: false
+            referencedRelation: "quests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_streaks: {
+        Row: {
+          created_at: string | null
+          current_streak: number
+          id: string
+          last_activity_date: string | null
+          longest_streak: number
+          streak_protected_until: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          streak_protected_until?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          streak_protected_until?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_xp: {
+        Row: {
+          created_at: string | null
+          current_level: number
+          id: string
+          total_xp: number
+          updated_at: string | null
+          user_id: string
+          xp_to_next_level: number
+        }
+        Insert: {
+          created_at?: string | null
+          current_level?: number
+          id?: string
+          total_xp?: number
+          updated_at?: string | null
+          user_id: string
+          xp_to_next_level?: number
+        }
+        Update: {
+          created_at?: string | null
+          current_level?: number
+          id?: string
+          total_xp?: number
+          updated_at?: string | null
+          user_id?: string
+          xp_to_next_level?: number
         }
         Relationships: []
       }
