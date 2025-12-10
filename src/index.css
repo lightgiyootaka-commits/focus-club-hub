@@ -191,3 +191,131 @@
     display: none;
   }
 }
+
+/* Flip Clock Styles */
+.flip-clock-wrapper {
+  @apply relative p-8;
+}
+
+.flip-clock-completed .flip-digit {
+  @apply border-primary/50;
+  box-shadow: 0 0 30px hsl(var(--primary) / 0.3);
+}
+
+.flip-clock {
+  @apply flex items-center gap-4;
+}
+
+.flip-group {
+  @apply flex gap-2 relative;
+}
+
+.flip-label {
+  @apply absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-muted-foreground tracking-widest font-medium;
+}
+
+.flip-separator {
+  @apply text-5xl font-bold text-primary mx-2;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.flip-digit-container {
+  @apply relative;
+  perspective: 400px;
+}
+
+.flip-digit {
+  @apply relative w-16 h-24 rounded-xl overflow-hidden;
+  background: linear-gradient(180deg, hsl(var(--secondary)) 0%, hsl(var(--card)) 100%);
+  border: 1px solid hsl(var(--border));
+  box-shadow: 
+    0 4px 20px hsl(0 0% 0% / 0.4),
+    inset 0 1px 0 hsl(var(--border) / 0.5);
+}
+
+.flip-digit::after {
+  content: '';
+  @apply absolute left-0 right-0 h-px bg-border/70;
+  top: 50%;
+  z-index: 5;
+}
+
+.digit-top,
+.digit-bottom,
+.digit-flip-top,
+.digit-flip-bottom {
+  @apply absolute left-0 right-0 flex items-center justify-center overflow-hidden;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.digit-top,
+.digit-flip-top {
+  @apply top-0 h-1/2;
+  background: linear-gradient(180deg, hsl(var(--muted)) 0%, hsl(var(--secondary)) 100%);
+}
+
+.digit-bottom,
+.digit-flip-bottom {
+  @apply bottom-0 h-1/2;
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--secondary) / 0.8) 100%);
+}
+
+.digit-top span,
+.digit-flip-top span {
+  @apply text-5xl font-bold text-foreground;
+  transform: translateY(50%);
+}
+
+.digit-bottom span,
+.digit-flip-bottom span {
+  @apply text-5xl font-bold text-foreground;
+  transform: translateY(-50%);
+}
+
+.digit-flip-top,
+.digit-flip-bottom {
+  @apply z-10 backface-visibility-hidden;
+  transform-origin: bottom;
+}
+
+.digit-flip-top {
+  transform-origin: bottom;
+  backface-visibility: hidden;
+}
+
+.digit-flip-bottom {
+  transform-origin: top;
+  transform: rotateX(90deg);
+  backface-visibility: hidden;
+}
+
+.flip-animation-top {
+  animation: flip-top 0.6s ease-in-out forwards;
+}
+
+.flip-animation-bottom {
+  animation: flip-bottom 0.6s ease-in-out forwards;
+}
+
+@keyframes flip-top {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes flip-bottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.backface-visibility-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
