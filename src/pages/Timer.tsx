@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { FocusTimer } from "@/components/timer/FocusTimer";
+import { FlipClockTimer } from "@/components/timer/FlipClockTimer";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useAuth } from "@/contexts/AuthContext";
 import { startFocusSession, endFocusSession, updateUserStats, getActiveFocusSession } from "@/lib/supabase";
@@ -90,7 +90,7 @@ export default function Timer() {
   return (
     <Layout title="Focus Timer">
       <div className="flex flex-col items-center pt-8 space-y-8 animate-fade-in">
-        <FocusTimer
+        <FlipClockTimer
           initialMinutes={25}
           onStart={handleStart}
           onComplete={handleComplete}
